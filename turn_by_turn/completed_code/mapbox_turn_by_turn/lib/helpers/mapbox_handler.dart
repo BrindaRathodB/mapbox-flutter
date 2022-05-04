@@ -29,7 +29,8 @@ Future<List> getParsedResponseForQuery(String value) async {
       'name': feature['text'],
       'address': feature['place_name'].split('${feature['text']}, ')[1],
       'place': feature['place_name'],
-      'location': LatLng(feature['center'][1], feature['center'][0])
+      'location': LatLng(
+          double.tryParse(feature['center'][1].toString()) ?? 0, double.tryParse(feature['center'][0].toString()) ?? 0)
     };
     parsedResponses.add(response);
   }
@@ -38,8 +39,7 @@ Future<List> getParsedResponseForQuery(String value) async {
 
 // ----------------------------- Mapbox Reverse Geocoding -----------------------------
 Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
-  var response =
-      json.decode(await getReverseGeocodingGivenLatLngUsingMapbox(latLng));
+  var response = json.decode(await getReverseGeocodingGivenLatLngUsingMapbox(latLng));
   Map feature = response['features'][0];
   Map revGeocode = {
     'name': feature['text'],
@@ -51,10 +51,8 @@ Future<Map> getParsedReverseGeocoding(LatLng latLng) async {
 }
 
 // ----------------------------- Mapbox Directions API -----------------------------
-Future<Map> getDirectionsAPIResponse(
-    LatLng sourceLatLng, LatLng destinationLatLng) async {
-  final response =
-      await getCyclingRouteUsingMapbox(sourceLatLng, destinationLatLng);
+Future<Map> getDirectionsAPIResponse(LatLng sourceLatLng, LatLng destinationLatLng) async {
+  final response = await getCyclingRouteUsingMapbox(sourceLatLng, destinationLatLng);
   Map geometry = response['routes'][0]['geometry'];
   num duration = response['routes'][0]['duration'];
   num distance = response['routes'][0]['distance'];

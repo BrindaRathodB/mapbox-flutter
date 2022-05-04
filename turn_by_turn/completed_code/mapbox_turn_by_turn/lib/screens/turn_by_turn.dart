@@ -51,12 +51,9 @@ class _TurnByTurnState extends State<TurnByTurn> {
         language: "en");
 
     // Configure waypoints
-    sourceWaypoint = WayPoint(
-        name: "Source", latitude: source.latitude, longitude: source.longitude);
-    destinationWaypoint = WayPoint(
-        name: "Destination",
-        latitude: destination.latitude,
-        longitude: destination.longitude);
+    sourceWaypoint = WayPoint(name: "Source", latitude: source.latitude, longitude: source.longitude);
+    destinationWaypoint =
+        WayPoint(name: "Destination", latitude: destination.latitude, longitude: destination.longitude);
     wayPoints.add(sourceWaypoint);
     wayPoints.add(destinationWaypoint);
 
